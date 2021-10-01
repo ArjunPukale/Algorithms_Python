@@ -38,10 +38,15 @@ maxSum = 0
 def DFS(i): #i=>index (parent)
     global maxSum
     stack.append(valueOf(i))
-    while parent[i] in parent_stack: #if a node with same level is already in the stack
-        deleteIdx = parent_stack.index(parent[i])
-        parent_stack.remove(parent_stack[deleteIdx])
-        stack.remove(stack[deleteIdx])
+    for idx,parentID in enumerate(parent_stack): 
+        if parentID>=parent[i]: #if a node with same or greater level is already in the stack
+            deleteIdx = idx
+            parent_stack.remove(parent_stack[deleteIdx])
+            stack.remove(stack[deleteIdx])
+#     while parent[i] in parent_stack: #if a node with same level is already in the stack
+#         deleteIdx = parent_stack.index(parent[i])
+#         parent_stack.remove(parent_stack[deleteIdx])
+#         stack.remove(stack[deleteIdx])
     parent_stack.append(parent[i])
     if isLeaf(i):
         #calculate the sum and record its path if new maxSum is found
